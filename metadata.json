@@ -1,0 +1,6 @@
+{
+  "name": "Dapur MBG",
+  "description": "Sistem Operasional & Joblist Persiapan Dapur MBG SPPG Sungai Pasir 1 Meral dengan Ekstraksi Teks Otomatis dan Database Lokal",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
