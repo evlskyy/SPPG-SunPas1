@@ -1,0 +1,14 @@
+CREATE TABLE extraction_records (
+    id INTEGER AS Long NOT NULL PRIMARY KEY AUTOINCREMENT,
+    sourceSnippet TEXT NOT NULL,
+    tasksExtracted INTEGER AS Int NOT NULL,
+    menusExtracted INTEGER AS Int NOT NULL,
+    timestamp INTEGER AS Long NOT NULL DEFAULT 0
+);
+
+getAllExtractions:
+SELECT * FROM extraction_records ORDER BY timestamp DESC;
+
+insertExtraction:
+INSERT OR REPLACE INTO extraction_records(sourceSnippet, tasksExtracted, menusExtracted, timestamp)
+VALUES (?, ?, ?, ?);

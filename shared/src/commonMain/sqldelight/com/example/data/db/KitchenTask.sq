@@ -1,0 +1,36 @@
+CREATE TABLE kitchen_tasks (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    day TEXT NOT NULL DEFAULT 'Semua Hari',
+    category TEXT NOT NULL DEFAULT 'Persiapan Bahan',
+    shift TEXT NOT NULL DEFAULT 'Shift 1 (Malam/Subuh)',
+    assignee TEXT NOT NULL DEFAULT 'Tim Dapur',
+    targetTime TEXT NOT NULL DEFAULT '06:00 WIB',
+    priority TEXT NOT NULL DEFAULT 'Sedang',
+    status TEXT NOT NULL DEFAULT 'Belum Dimulai',
+    sortOrder INTEGER AS Int NOT NULL DEFAULT 0,
+    createdAt INTEGER AS Long NOT NULL DEFAULT 0
+);
+
+getAllTasks:
+SELECT * FROM kitchen_tasks ORDER BY sortOrder ASC, createdAt ASC;
+
+getTaskCount:
+SELECT COUNT(*) FROM kitchen_tasks;
+
+upsertTask:
+INSERT OR REPLACE INTO kitchen_tasks(id, title, day, category, shift, assignee, targetTime, priority, status, sortOrder, createdAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+insertTasks:
+INSERT OR REPLACE INTO kitchen_tasks(id, title, day, category, shift, assignee, targetTime, priority, status, sortOrder, createdAt)
+VALUES ?;
+
+updateTaskStatus:
+UPDATE kitchen_tasks SET status = :status WHERE id = :id;
+
+deleteTaskById:
+DELETE FROM kitchen_tasks WHERE id = :id;
+
+deleteAllTasks:
+DELETE FROM kitchen_tasks;

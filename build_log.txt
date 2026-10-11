@@ -1,0 +1,196 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Calculating task graph as no cached configuration is available for tasks: :shared:compileDebugKotlinAndroid
+
+> Configure project :composeApp
+WARNING: The option setting 'android.builtInKotlin=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+WARNING: The option setting 'android.newDsl=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+
+> Configure project :shared
+w: file:///workspace/shared/build.gradle.kts:60:1: 'fun Project.android(configure: Action<LibraryExtension>): Unit' is deprecated. Replaced by com.android.build.api.dsl.LibraryExtension.
+This class is not used for the public extensions in AGP when android.newDsl=true, which is the default in AGP 9.0, and will be removed in AGP 10.0.
+
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:convertXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :shared:convertXmlValueResourcesForCommonMain NO-SOURCE
+> Task :shared:copyNonXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :shared:prepareComposeResourcesTaskForAndroidMain NO-SOURCE
+> Task :shared:generateResourceAccessorsForAndroidMain NO-SOURCE
+> Task :shared:preBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :shared:copyNonXmlValueResourcesForCommonMain
+> Task :shared:prepareComposeResourcesTaskForCommonMain
+> Task :shared:generateComposeResClass
+> Task :shared:generateResourceAccessorsForCommonMain
+> Task :shared:generateActualResourceCollectorsForAndroidMain
+> Task :shared:generateExpectResourceCollectorsForCommonMain
+> Task :shared:convertXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :shared:copyNonXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :shared:prepareComposeResourcesTaskForAndroidDebug NO-SOURCE
+> Task :shared:generateDebugResources
+> Task :shared:processDebugNavigationResources
+> Task :shared:generateResourceAccessorsForAndroidDebug NO-SOURCE
+> Task :shared:packageDebugResources
+> Task :shared:parseDebugLocalResources
+> Task :shared:generateDebugRFile
+
+> Task :shared:generateCommonMainAppDatabaseInterface
+WARN: Attempt to load key 'ide.hide.excluded.files' for not yet loaded registry
+WARN: Attempt to load key 'psi.sleep.in.validity.check' for not yet loaded registry
+WARN: Attempt to load key 'psi.incremental.reparse.depth.limit' for not yet loaded registry
+
+> Task :shared:compileDebugKotlinAndroid
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/DailyMenuQueries.kt:10:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Daily_menus.kt:5:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/ExtractionRecordQueries.kt:3:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/ExtractionRecordQueries.kt:10:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Extraction_records.kt:3:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Extraction_records.kt:6:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/HaccpCheckQueries.kt:3:8 Unresolved reference 'Boolean'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/HaccpCheckQueries.kt:4:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/HaccpCheckQueries.kt:10:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Haccp_checks.kt:3:8 Unresolved reference 'Boolean'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Haccp_checks.kt:4:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Haccp_checks.kt:6:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/KitchenTaskQueries.kt:3:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/KitchenTaskQueries.kt:10:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Kitchen_tasks.kt:3:8 Unresolved reference 'Int'.
+e: file:///workspace/shared/build/generated/sqldelight/code/AppDatabase/commonMain/com/example/data/db/Kitchen_tasks.kt:6:8 Unresolved reference 'Long'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:18:9 No parameter with name 'kitchenTaskQueries' found.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:18:49 No value passed for parameter 'kitchen_tasksAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:19:9 No parameter with name 'dailyMenuQueries' found.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:19:45 No value passed for parameter 'daily_menusAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:20:9 No parameter with name 'haccpCheckQueries' found.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:20:47 No value passed for parameter 'haccp_checksAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:9 No parameter with name 'extractionRecordQueries' found.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:9 No value passed for parameter 'daily_menusAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:9 No value passed for parameter 'extraction_recordsAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:9 No value passed for parameter 'haccp_checksAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:9 No value passed for parameter 'kitchen_tasksAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/db/DatabaseDriverFactory.kt:21:59 No value passed for parameter 'extraction_recordsAdapter'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:7:28 Unresolved reference 'KitchenTask'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:24:17 Unresolved reference 'KitchenTask'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:14 Unresolved reference 'id'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:26 Unresolved reference 'title'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:39 Unresolved reference 'day'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:55 Argument type mismatch: actual type is 'CharCategory', but 'String' was expected.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:55 Unresolved reference 'KitchenTask'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:25:73 Unresolved reference 'shift'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:26:20 Unresolved reference 'assignee'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:26:43 Unresolved reference 'targetTime'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:26:66 Unresolved reference 'priority'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:27:18 Unresolved reference 'status'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:27:38 Unresolved reference 'sortOrder'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:27:61 Unresolved reference 'createdAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:30:45 Unresolved reference 'KitchenTask'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:36:37 Unresolved reference 'DailyMenu'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:37:15 Unresolved reference 'day'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:37:28 Unresolved reference 'porsi'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:37:46 Unresolved reference 'jamKirim'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:37:67 Unresolved reference 'menuList'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:37:89 Unresolved reference 'updatedAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:40:63 Unresolved reference 'DailyMenu'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:44:37 Unresolved reference 'HaccpCheck'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:45:14 Unresolved reference 'id'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:45:34 Unresolved reference 'coldStorageOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:45:66 Unresolved reference 'organolepticOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:46:24 Unresolved reference 'sanitationOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:46:48 Unresolved reference 'labelOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:46:69 Unresolved reference 'updatedAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:49:64 Unresolved reference 'HaccpCheck'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:54:37 Unresolved reference 'ExtractionRecord'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:55:14 Unresolved reference 'id'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:55:34 Unresolved reference 'sourceSnippet'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:55:66 Unresolved reference 'tasksExtracted'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:56:26 Unresolved reference 'menusExtracted'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:56:54 Unresolved reference 'timestamp'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:64:42 Overload resolution ambiguity between candidates:
+fun <ERROR TYPE REF: Symbol not found for KitchenTask>.toEntity(): KitchenTaskEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.DailyMenu>.toEntity(): DailyMenuEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.HaccpCheck>.toEntity(): HaccpCheckEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.ExtractionRecord>.toEntity(): ExtractionRecordEntity
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'title'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'day'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'category'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'shift'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'assignee'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'targetTime'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'priority'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'status'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'sortOrder'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:71:48 No value passed for parameter 'createdAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'title'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'day'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'category'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'shift'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'assignee'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'targetTime'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'priority'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'status'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'sortOrder'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:76:68 No value passed for parameter 'createdAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:99:42 Overload resolution ambiguity between candidates:
+fun <ERROR TYPE REF: Symbol not found for KitchenTask>.toEntity(): KitchenTaskEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.DailyMenu>.toEntity(): DailyMenuEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.HaccpCheck>.toEntity(): HaccpCheckEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.ExtractionRecord>.toEntity(): ExtractionRecordEntity
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:105:24 Overload resolution ambiguity between candidates:
+fun <ERROR TYPE REF: Symbol not found for KitchenTask>.toEntity(): KitchenTaskEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.DailyMenu>.toEntity(): DailyMenuEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.HaccpCheck>.toEntity(): HaccpCheckEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.ExtractionRecord>.toEntity(): ExtractionRecordEntity
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:109:66 No value passed for parameter 'porsi'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:109:66 No value passed for parameter 'jamKirim'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:109:66 No value passed for parameter 'menuList'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:109:66 No value passed for parameter 'updatedAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:114:46 No value passed for parameter 'porsi'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:114:46 No value passed for parameter 'jamKirim'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:114:46 No value passed for parameter 'menuList'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:114:46 No value passed for parameter 'updatedAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:126:24 Overload resolution ambiguity between candidates:
+fun <ERROR TYPE REF: Symbol not found for KitchenTask>.toEntity(): KitchenTaskEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.DailyMenu>.toEntity(): DailyMenuEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.HaccpCheck>.toEntity(): HaccpCheckEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.ExtractionRecord>.toEntity(): ExtractionRecordEntity
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:129:53 No value passed for parameter 'coldStorageOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:129:53 No value passed for parameter 'organolepticOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:129:53 No value passed for parameter 'sanitationOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:129:53 No value passed for parameter 'labelOk'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:129:53 No value passed for parameter 'updatedAt'.
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:137:42 Overload resolution ambiguity between candidates:
+fun <ERROR TYPE REF: Symbol not found for KitchenTask>.toEntity(): KitchenTaskEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.DailyMenu>.toEntity(): DailyMenuEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.HaccpCheck>.toEntity(): HaccpCheckEntity
+fun <ERROR TYPE REF: Symbol not found for com.example.data.db.ExtractionRecord>.toEntity(): ExtractionRecordEntity
+e: file:///workspace/shared/src/commonMain/kotlin/com/example/data/local/KitchenDao.kt:144:25 Argument type mismatch: actual type is 'kotlin.Long', but 'java.lang.Long' was expected.
+
+> Task :shared:compileDebugKotlinAndroid FAILED
+
+[Incubating] Problems report is available at: file:///workspace/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':shared:compileDebugKotlinAndroid'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1m 39s
+13 actionable tasks: 13 executed
+Configuration cache entry stored.

@@ -5,4 +5,8 @@ plugins {
   alias(libs.plugins.google.devtools.ksp) apply false
   alias(libs.plugins.secrets) apply false
   alias(libs.plugins.google.services) apply false
+  alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.android.library) apply false
+  alias(libs.plugins.compose.multiplatform) apply false
+  alias(libs.plugins.sqldelight) apply false
 }

@@ -1,0 +1,15 @@
+CREATE TABLE haccp_checks (
+    id INTEGER AS Int NOT NULL PRIMARY KEY,
+    coldStorageOk INTEGER AS Boolean NOT NULL DEFAULT 0,
+    organolepticOk INTEGER AS Boolean NOT NULL DEFAULT 0,
+    sanitationOk INTEGER AS Boolean NOT NULL DEFAULT 0,
+    labelOk INTEGER AS Boolean NOT NULL DEFAULT 0,
+    updatedAt INTEGER AS Long NOT NULL DEFAULT 0
+);
+
+getHaccpCheck:
+SELECT * FROM haccp_checks WHERE id = 1 LIMIT 1;
+
+upsertHaccpCheck:
+INSERT OR REPLACE INTO haccp_checks(id, coldStorageOk, organolepticOk, sanitationOk, labelOk, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?);
