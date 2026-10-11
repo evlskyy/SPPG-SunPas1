@@ -35,3 +35,20 @@ actual fun createDriverFactory(): DriverFactory = object : DriverFactory {
     override fun createDriver(): SqlDriver =
         AndroidSqliteDriver(AppDatabase.Schema, appContext!!, "dapur_mbg.db")
 }
+
+private var kvStore: com.example.data.db.KeyValueStore? = null
+
+private fun getKeyValueStore(): com.example.data.db.KeyValueStore {
+    return kvStore ?: com.example.data.db.KeyValueStore(
+        AndroidSqliteDriver(AppDatabase.Schema, appContext!!, "dapur_mbg.db")
+    ).also { kvStore = it }
+}
+
+actual fun platformSaveString(key: String, value: String) {
+    getKeyValueStore().putString(key, value)
+}
+
+actual fun platformGetString(key: String, default: String): String {
+    val ctx = appContext ?: return default
+    return getKeyValueStore().getString(key, default)
+}

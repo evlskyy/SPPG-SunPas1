@@ -1,11 +1,2 @@
-.gradle/
-build/
-*/build/
+*.apk
 .idea/
-*.iml
-.vscode/
-local.properties
-*.keystore
-debug.keystore
-*.log
-build_log.txt

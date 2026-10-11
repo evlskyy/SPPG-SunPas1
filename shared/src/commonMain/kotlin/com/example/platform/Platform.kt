@@ -19,3 +19,7 @@ expect fun shareText(text: String, title: String)
 
 /** Factory driver SQLite per-platform untuk SQLDelight. */
 expect fun createDriverFactory(): DriverFactory
+
+/** Simpan/ambil string preferensi ringan lintas-platform (key-value store). */
+expect fun platformSaveString(key: String, value: String)
+expect fun platformGetString(key: String, default: String): String

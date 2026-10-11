@@ -122,6 +122,14 @@ class KitchenDao(private val database: AppDatabase, private val ioDispatcher: Co
         )
     }
 
+    /** Update jadwal distribusi (jamKirim) untuk SEMUA hari sekaligus. */
+    suspend fun updateJamKirimAllDays(jamKirim: String) = withContext(ioDispatcher) {
+        database.dailyMenuQueries.updateJamKirimAllDays(
+            jamKirim = jamKirim,
+            updatedAt = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+        )
+    }
+
     suspend fun getMenuCount(): Int = withContext(ioDispatcher) {
         database.dailyMenuQueries.getMenuCount().executeAsOne().toInt()
     }

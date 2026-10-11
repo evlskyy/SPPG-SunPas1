@@ -168,6 +168,8 @@ fun DashboardScreen(
                     HeaderSection(
                         dateStr = currentDateStr,
                         timeStr = currentTimeStr,
+                        logoEmoji = state.logoEmoji,
+                        onLogoTap = { viewModel.openLogoDialog() },
                         onOpenExtraction = { viewModel.openExtractDialog() },
                         onAddTask = { viewModel.openAddTask() },
                         onExportCsv = {
@@ -357,6 +359,8 @@ fun DashboardScreen(
 private fun HeaderSection(
     dateStr: String,
     timeStr: String,
+    logoEmoji: String,
+    onLogoTap: () -> Unit,
     onOpenExtraction: () -> Unit,
     onAddTask: () -> Unit,
     onExportCsv: () -> Unit
@@ -374,33 +378,51 @@ private fun HeaderSection(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Logo Icon
+                // Logo Icon (ketuk untuk kustomisasi garpu & sendok)
                 Box(
                     modifier = Modifier
                         .size(46.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(
                             Brush.linearGradient(listOf(Emerald600, Teal500))
-                        ),
+                        )
+                        .clickable(onClick = onLogoTap)
+                        .testTag("app_logo_box"),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Restaurant,
-                        contentDescription = "Logo MBG",
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp)
+                    Text(
+                        text = logoEmoji,
+                        fontSize = 24.sp,
+                        fontFamily = FontFamily.Default
                     )
                 }
 
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "SPPG SUNGAI PASIR 1 MERAL",
-                        color = Color.White,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.ExtraBold
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "SPPG SUNGAI PASIR 1 MERAL",
+                            color = Color.White,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                        IconButton(
+                            onClick = onLogoTap,
+                            modifier = Modifier.size(26.dp).testTag("btn_edit_logo")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Kustomisasi Logo",
+                                tint = Slate400,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
                     Spacer(modifier = Modifier.height(2.dp))
                     Box(
                         modifier = Modifier

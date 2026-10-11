@@ -50,7 +50,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,6 +71,8 @@ import com.example.ui.theme.Emerald600
 import com.example.ui.theme.Emerald800
 import com.example.ui.theme.Emerald950
 import com.example.ui.theme.Red400
+import com.example.ui.theme.Red500
+import com.example.ui.theme.Sky400
 import com.example.ui.theme.Slate100
 import com.example.ui.theme.Slate200
 import com.example.ui.theme.Slate300
@@ -90,6 +94,7 @@ fun AutoExtractionDialog(
 ) {
     var rawInputText by remember { mutableStateOf("") }
     var replaceExisting by remember { mutableStateOf(false) }
+    val clipboardManager = LocalClipboardManager.current
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -170,17 +175,43 @@ fun AutoExtractionDialog(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Action buttons: Preload original document text
+                // Action buttons: Paste from clipboard / Preload original document text
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedButton(
                         onClick = {
-                            rawInputText = AutoTextExtractor.ORIGINAL_DOCUMENT_TEXT
+                            val clipText = clipboardManager.getText()?.text.orEmpty()
+                            rawInputText = if (clipText.isNotBlank()) {
+                                if (rawInputText.isNotBlank()) "$rawInputText\n$clipText" else clipText
+                            } else rawInputText
                         },
                         modifier = Modifier
                             .weight(1f)
+                            .testTag("paste_clipboard_button"),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Sky400,
+                            containerColor = Slate950
+                        ),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Slate700)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ContentPaste,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Tempel", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                    }
+
+                    OutlinedButton(
+                        onClick = {
+                            rawInputText = AutoTextExtractor.ORIGINAL_DOCUMENT_TEXT
+                        },
+                        modifier = Modifier
+                            .weight(1.2f)
                             .testTag("preload_document_button"),
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.outlinedButtonColors(
@@ -195,9 +226,14 @@ fun AutoExtractionDialog(
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Muat Teks Dokumen", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("Muat Teks Dokumen", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                     }
+                }
 
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     OutlinedButton(
                         onClick = {
                             rawInputText = """
@@ -213,7 +249,7 @@ Menu: Nasi Kuning, Telur Balado, Timun, Buah Pisang
                             """.trimIndent()
                         },
                         modifier = Modifier
-                            .weight(1f)
+                            .fillMaxWidth()
                             .testTag("sample_notes_button"),
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.outlinedButtonColors(
@@ -223,18 +259,18 @@ Menu: Nasi Kuning, Telur Balado, Timun, Buah Pisang
                         border = androidx.compose.foundation.BorderStroke(1.dp, Amber500)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.ContentPaste,
+                            imageVector = Icons.Default.Description,
                             contentDescription = null,
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Sampel Catatan Dapur", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("Sampel Catatan Dapur", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Text Field Input
+                // Text Field Input (bisa diketik manual maupun ditempel dari clipboard)
                 OutlinedTextField(
                     value = rawInputText,
                     onValueChange = { rawInputText = it },
@@ -248,9 +284,12 @@ Menu: Nasi Kuning, Telur Balado, Timun, Buah Pisang
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(140.dp)
+                        .heightIn(min = 160.dp, max = 260.dp)
                         .testTag("raw_text_input"),
                     shape = RoundedCornerShape(12.dp),
+                    maxLines = 12,
+                    minLines = 6,
+                    scrollEnabled = true,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Slate200,
@@ -263,6 +302,32 @@ Menu: Nasi Kuning, Telur Balado, Timun, Buah Pisang
                     ),
                     textStyle = androidx.compose.ui.text.TextStyle(fontSize = 12.sp)
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (rawInputText.isBlank()) "Belum ada teks" else "${rawInputText.length} karakter",
+                        color = Slate500,
+                        fontSize = 10.sp
+                    )
+                    if (rawInputText.isNotBlank()) {
+                        Text(
+                            text = "Hapus ✕",
+                            color = Red400,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .clickable { rawInputText = "" }
+                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
 

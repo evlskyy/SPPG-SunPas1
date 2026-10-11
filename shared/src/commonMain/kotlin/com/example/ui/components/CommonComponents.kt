@@ -3,6 +3,7 @@ package com.example.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -133,26 +135,64 @@ fun CategoryBadge(category: String) {
 }
 
 @Composable
-fun PriorityBadge(priority: String) {
-    val (bg, border, textCol, emoji) = when (priority) {
-        "Tinggi" -> Quad(Red950, Red800, Red400, "Tinggi 🔥")
-        "Sedang" -> Quad(Amber950, Amber500, Amber400, "Sedang ⚡")
-        else -> Quad(Slate800, Slate700, Slate400, "Rendah ☕")
+fun PriorityBadge(
+    priority: String,
+    onClick: (() -> Unit)? = null,
+    showDropdownHint: Boolean = false
+) {
+    val (bg, border, textCol, label) = when (priority) {
+        "Tinggi" -> Quad(Red950, Red800, Red400, "🔥 Tinggi")
+        "Sedang" -> Quad(Amber950, Amber500, Amber400, "⚡ Sedang")
+        else -> Quad(Slate800, Slate700, Slate300, "☕ Rendah")
     }
 
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(bg)
-            .border(1.dp, border, RoundedCornerShape(6.dp))
-            .padding(horizontal = 8.dp, vertical = 3.dp)
-    ) {
-        Text(
-            text = emoji,
-            color = textCol,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Bold
-        )
+    var expanded by remember { mutableStateOf(false) }
+    val clickable = onClick != null || showDropdownHint
+
+    Box(modifier = Modifier) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(6.dp))
+                .background(bg)
+                .border(1.dp, border, RoundedCornerShape(6.dp))
+                .then(if (clickable) Modifier.clickable { expanded = true } else Modifier)
+                .padding(horizontal = 8.dp, vertical = 3.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(3.dp)
+        ) {
+            Text(
+                text = label,
+                color = textCol,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            if (showDropdownHint) {
+                Text(text = "▼", color = textCol.copy(alpha = 0.7f), fontSize = 7.sp)
+            }
+        }
+
+        if (onClick != null && showDropdownHint) {
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(Slate900)
+            ) {
+                DropdownMenuItem(
+                    text = { Text("🔥 Tinggi", color = Red400, fontSize = 12.sp, fontWeight = FontWeight.Bold) },
+                    onClick = { onClick(); expanded = false }
+                )
+                DropdownMenuItem(
+                    text = { Text("⚡ Sedang", color = Amber400, fontSize = 12.sp, fontWeight = FontWeight.Bold) },
+                    onClick = { onClick(); expanded = false }
+                )
+                DropdownMenuItem(
+                    text = { Text("☕ Rendah", color = Slate300, fontSize = 12.sp, fontWeight = FontWeight.Bold) },
+                    onClick = { onClick(); expanded = false }
+                )
+            }
+        }
     }
 }
 
@@ -163,6 +203,7 @@ fun TaskCard(
     task: KitchenTaskEntity,
     onToggleDone: () -> Unit,
     onStatusChange: (String) -> Unit,
+    onPriorityChange: ((String) -> Unit)? = null,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
@@ -222,15 +263,21 @@ fun TaskCard(
 
                     Spacer(modifier = Modifier.height(6.dp))
 
-                    // Chips row
+                    // Chips row (scrollable horizontal agar dimensi badge rapi & tidak terpotong)
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(6.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         DayBadge(day = task.day)
                         CategoryBadge(category = task.category)
-                        PriorityBadge(priority = task.priority)
+                        PriorityBadge(
+                            priority = task.priority,
+                            onClick = onPriorityChange,
+                            showDropdownHint = onPriorityChange != null
+                        )
                     }
                 }
 

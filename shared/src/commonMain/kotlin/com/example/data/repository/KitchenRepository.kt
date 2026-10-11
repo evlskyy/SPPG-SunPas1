@@ -93,6 +93,11 @@ class KitchenRepository(
         dao.upsertMenu(menu)
     }
 
+    /** Update jadwal distribusi (jam kirim) untuk seluruh hari dalam satu aksi. */
+    suspend fun updateJamDistribusiAllDays(jamKirim: String) = withContext(ioDispatcher) {
+        dao.updateJamKirimAllDays(jamKirim)
+    }
+
     suspend fun upsertHaccpCheck(haccp: HaccpCheckEntity) = withContext(ioDispatcher) {
         dao.upsertHaccpCheck(haccp)
     }

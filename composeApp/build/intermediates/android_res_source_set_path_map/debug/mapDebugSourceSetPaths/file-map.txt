@@ -1,0 +1,9 @@
+com.example.app.composeApp-pngs-0 /workspace/composeApp/build/generated/res/pngs/debug
+com.example.app.composeApp-updated_navigation_xml-1 /workspace/composeApp/build/generated/updated_navigation_xml/debug
+com.example.app.composeApp-packageDebugResources-2 /workspace/composeApp/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.app.composeApp-packageDebugResources-3 /workspace/composeApp/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.app.composeApp-debug-4 /workspace/composeApp/build/intermediates/merged_res/debug/mergeDebugResources
+com.example.app.composeApp-androidDebug-5 /workspace/composeApp/src/androidDebug/res
+com.example.app.composeApp-androidMain-6 /workspace/composeApp/src/androidMain/res
+com.example.app.composeApp-debug-7 /workspace/composeApp/src/debug/res
+com.example.app.composeApp-main-8 /workspace/composeApp/src/main/res

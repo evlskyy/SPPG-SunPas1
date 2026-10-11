@@ -30,6 +30,9 @@ data class DashboardUiState(
     val showTaskDialog: Boolean = false,
     val editingTask: KitchenTaskEntity? = null,
     val showMenuDialog: Boolean = false,
+    val showScheduleDialog: Boolean = false,
+    val showLogoDialog: Boolean = false,
+    val logoEmoji: String = "🍴",
     val showExtractDialog: Boolean = false,
     val extractionPreview: ExtractionResult? = null,
     val isExtracting: Boolean = false,
@@ -95,6 +98,9 @@ class DashboardViewModel(private val repository: KitchenRepository) : ViewModel(
     private val _showTaskDialog = MutableStateFlow(false)
     private val _editingTask = MutableStateFlow<KitchenTaskEntity?>(null)
     private val _showMenuDialog = MutableStateFlow(false)
+    private val _showScheduleDialog = MutableStateFlow(false)
+    private val _showLogoDialog = MutableStateFlow(false)
+    private val _logoEmoji = MutableStateFlow("🍴")
     private val _showExtractDialog = MutableStateFlow(false)
     private val _extractionPreview = MutableStateFlow<ExtractionResult?>(null)
     private val _isExtracting = MutableStateFlow(false)
@@ -118,9 +124,21 @@ class DashboardViewModel(private val repository: KitchenRepository) : ViewModel(
             _showTaskDialog,
             _editingTask,
             _showMenuDialog,
-            _showExtractDialog
-        ) { menuDay, taskDlg, editTask, menuDlg, extDlg ->
-            DialogTuple(menuDay, taskDlg, editTask, menuDlg, extDlg)
+            _showExtractDialog,
+            _showScheduleDialog,
+            _showLogoDialog,
+            _logoEmoji
+        ) { args ->
+            DialogTuple(
+                menuDay = args[0] as String,
+                taskDlg = args[1] as Boolean,
+                editTask = args[2] as KitchenTaskEntity?,
+                menuDlg = args[3] as Boolean,
+                extDlg = args[4] as Boolean,
+                scheduleDlg = args[5] as Boolean,
+                logoDlg = args[6] as Boolean,
+                logoEmoji = args[7] as String
+            )
         }
     ) { tasks, menus, haccp, filters, dialogs ->
         DashboardUiState(
@@ -136,6 +154,9 @@ class DashboardViewModel(private val repository: KitchenRepository) : ViewModel(
             showTaskDialog = dialogs.taskDlg,
             editingTask = dialogs.editTask,
             showMenuDialog = dialogs.menuDlg,
+            showScheduleDialog = dialogs.scheduleDlg,
+            showLogoDialog = dialogs.logoDlg,
+            logoEmoji = dialogs.logoEmoji,
             showExtractDialog = dialogs.extDlg,
             extractionPreview = _extractionPreview.value,
             isExtracting = _isExtracting.value,
@@ -277,6 +298,46 @@ class DashboardViewModel(private val repository: KitchenRepository) : ViewModel(
         _showMenuDialog.value = true
     }
 
+    // ==== Jadwal Distribusi (edit cepat, berlaku untuk semua hari) ====
+    fun openScheduleDialog() {
+        _showScheduleDialog.value = true
+    }
+
+    fun closeScheduleDialog() {
+        _showScheduleDialog.value = false
+    }
+
+    fun saveSchedule(jamKirim: String) {
+        val trimmed = jamKirim.trim()
+        if (trimmed.isEmpty()) return
+        viewModelScope.launch {
+            repository.updateJamDistribusiAllDays(trimmed)
+            showToast("Jadwal distribusi diperbarui: $trimmed")
+            closeScheduleDialog()
+        }
+    }
+
+    // ==== Kustomisasi Logo Garpu & Sendok ====
+    fun openLogoDialog() {
+        _showLogoDialog.value = true
+    }
+
+    fun closeLogoDialog() {
+        _showLogoDialog.value = false
+    }
+
+    fun saveLogoEmoji(emoji: String) {
+        val chosen = emoji.trim().ifEmpty { "🍴" }
+        _logoEmoji.value = chosen
+        platformSaveString("app_logo_emoji", chosen)
+        showToast("Logo aplikasi diganti menjadi $chosen")
+        closeLogoDialog()
+    }
+
+    fun loadSavedLogo() {
+        _logoEmoji.value = platformGetString("app_logo_emoji", "🍴")
+    }
+
     fun closeMenuDialog() {
         _showMenuDialog.value = false
     }
@@ -374,5 +435,8 @@ private data class DialogTuple(
     val taskDlg: Boolean,
     val editTask: KitchenTaskEntity?,
     val menuDlg: Boolean,
-    val extDlg: Boolean
+    val extDlg: Boolean,
+    val scheduleDlg: Boolean,
+    val logoDlg: Boolean,
+    val logoEmoji: String
 )

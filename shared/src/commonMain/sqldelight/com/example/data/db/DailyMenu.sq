@@ -25,3 +25,8 @@ VALUES (?, ?, ?, ?, ?);
 insertMenus:
 INSERT OR REPLACE INTO daily_menus(day, porsi, jamKirim, menuList, updatedAt)
 VALUES ?;
+
+updateJamKirimAllDays:
+UPDATE daily_menus
+SET jamKirim = :jamKirim, updatedAt = :updatedAt
+WHERE 1;
