@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dapur MBG — SPPG Sungai Pasir 1 Meral</title>
+<style>
+:root{--green:#0d6832;--lime:#e8f5e9;--amber:#ff8f00;--ink:#1b2a1f;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f8f4;color:var(--ink)}
+header{background:linear-gradient(135deg,var(--green),#1b9a4c);color:#fff;padding:28px 20px;text-align:center}
+header h1{font-size:1.6rem}
+header p{opacity:.9;margin-top:6px;font-size:.95rem}
+.badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);padding:8px 16px;border-radius:24px;font-weight:600;font-size:.85rem}
+main{max-width:960px;margin:0 auto;padding:24px 16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card h2{font-size:1.05rem;color:var(--green);margin-bottom:10px}
+.card ul{list-style:none}
+.card li{padding:7px 0;border-bottom:1px dashed #e0e8e0;font-size:.92rem}
+.card li:last-child{border:none}
+.tag{display:inline-block;background:var(--lime);color:var(--green);border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:700;margin-left:6px}
+.haccp span{display:inline-block;margin:4px 6px 4px 0;padding:6px 12px;border-radius:8px;color:#fff;font-size:.8rem;font-weight:600}
+footer{text-align:center;padding:24px;color:#667a6b;font-size:.85rem}
+code{background:#eef3ee;padding:2px 6px;border-radius:6px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>🍳 Dapur MBG</h1>
+  <p>Sistem Operasional &amp; Joblist Persiapan Dapur MBG<br>SPPG Sungai Pasir 1 Meral — Yayasan Bidadari Indonesia Gemilang</p>
+  <div class="badges">
+    <div class="badge">🤖 Ekstraksi Teks Otomatis (Gemini AI)</div>
+    <div class="badge">📱 Android + iOS (Compose Multiplatform)</div>
+    <div class="badge">🗄️ Database Lokal Offline</div>
+  </div>
+</header>
+<main>
+  <section class="grid">
+    <div class="card">
+      <h2>🎯 Target &amp; Jadwal</h2>
+      <ul>
+        <li>Total Porsi Harian <span class="tag">± 2.503–2.541</span></li>
+        <li>Jadwal Distribusi: 07:45 | 08:40 | 10:00 WIB</li>
+        <li>Shift 1: Malam/Subuh — Persiapan</li>
+        <li>Dashboard joblist + ekspor CSV</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>📅 Menu Harian</h2>
+      <ul>
+        <li><b>Senin</b>: Potato Wedges, Pangsit Ayam, Edamame, Mix Vegetable, Anggur</li>
+        <li><b>Selasa</b>: Nasi Putih, Ayam Goreng Kecap, Tahu Bacem, Tumis Wortel &amp; Jagung, Salak</li>
+        <li><b>Rabu</b>: Nasi Putih, Ayam Tongseng, Tempe Orek, Tumis Labu Siam &amp; Jagung, Pisang</li>
+        <li><b>Kamis</b>: Nasi Liwet, Ayam Bumbu Kuning, Tahu Ungkep, Selada &amp; Timun, Anggur</li>
+        <li><b>Jumat</b>: Nasi Putih, Telur Pindang, Edamame, Tumis Buncis &amp; Wortel, Kelengkeng</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>🔪 Standar HACCP Aturan Talenan</h2>
+      <div class="haccp">
+        <span style="background:#c62828">Merah: Daging Sapi/Kambing Mentah</span>
+        <span style="background:#f9a825;color:#333">Kuning: Ayam/Unggas Mentah</span>
+        <span style="background:#2e7d32">Hijau: Sayur &amp; Buah</span>
+        <span style="background:#1565c0">Biru: Ikan &amp; Seafood</span>
+        <span style="background:#5d4037">Cokelat: Daging Masak</span>
+        <span style="background:#9e9e9e;color:#222">Putih: Susu, Roti &amp; Keju</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🚀 Dukungan Platform</h2>
+      <ul>
+        <li>Android <span class="tag">Siap build</span> <code>:composeApp:assembleDebug</code></li>
+        <li>iOS <span class="tag">Perlu macOS + Xcode</span> <code>iosApp/</code></li>
+        <li>Logika &amp; UI bersama di modul <code>shared/</code></li>
+        <li>DB lokal: SQLDelight (Room → multiplatform)</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<footer>Dapur MBG · Compose Multiplatform (KMP) · Halaman demo statis ini dapat di-deploy ke Firebase Hosting / Netlify / Vercel / GitHub Pages.</footer>
+</body>
+</html>

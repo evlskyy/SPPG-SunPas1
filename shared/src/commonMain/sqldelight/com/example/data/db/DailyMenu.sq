@@ -1,0 +1,32 @@
+CREATE TABLE daily_menus (
+    day TEXT NOT NULL PRIMARY KEY,
+    porsi TEXT NOT NULL DEFAULT '2.503 Porsi',
+    jamKirim TEXT NOT NULL DEFAULT '07:45 WIB | 08:40 WIB | 10:00 WIB',
+    menuList TEXT NOT NULL DEFAULT '',
+    updatedAt INTEGER NOT NULL DEFAULT 0
+);
+
+getAllMenus:
+SELECT * FROM daily_menus
+ORDER BY CASE day
+    WHEN 'Senin' THEN 1 WHEN 'Selasa' THEN 2 WHEN 'Rabu' THEN 3
+    WHEN 'Kamis' THEN 4 WHEN 'Jumat' THEN 5 ELSE 6 END;
+
+getMenuByDay:
+SELECT * FROM daily_menus WHERE day = :day LIMIT 1;
+
+getMenuCount:
+SELECT COUNT(*) FROM daily_menus;
+
+upsertMenu:
+INSERT OR REPLACE INTO daily_menus(day, porsi, jamKirim, menuList, updatedAt)
+VALUES (?, ?, ?, ?, ?);
+
+insertMenus:
+INSERT OR REPLACE INTO daily_menus(day, porsi, jamKirim, menuList, updatedAt)
+VALUES ?;
+
+updateJamKirimAllDays:
+UPDATE daily_menus
+SET jamKirim = :jamKirim, updatedAt = :updatedAt
+WHERE 1;

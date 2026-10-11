@@ -8,6 +8,8 @@ pluginManagement {
       }
     }
     mavenCentral()
+    google()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     gradlePluginPortal()
   }
 }
@@ -19,9 +21,10 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
   }
 }
 
-rootProject.name = "Dapur MBG"
+rootProject.name = "DapurMBG"
 
-include(":app")
+include(":shared", ":composeApp")
