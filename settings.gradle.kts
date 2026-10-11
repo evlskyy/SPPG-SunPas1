@@ -25,6 +25,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Dapur MBG"
+rootProject.name = "DapurMBG"
 
 include(":shared", ":composeApp")

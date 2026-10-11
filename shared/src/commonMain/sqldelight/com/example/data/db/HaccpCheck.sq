@@ -1,10 +1,10 @@
 CREATE TABLE haccp_checks (
-    id INTEGER AS Int NOT NULL PRIMARY KEY,
-    coldStorageOk INTEGER AS Boolean NOT NULL DEFAULT 0,
-    organolepticOk INTEGER AS Boolean NOT NULL DEFAULT 0,
-    sanitationOk INTEGER AS Boolean NOT NULL DEFAULT 0,
-    labelOk INTEGER AS Boolean NOT NULL DEFAULT 0,
-    updatedAt INTEGER AS Long NOT NULL DEFAULT 0
+    id INTEGER NOT NULL PRIMARY KEY,
+    coldStorageOk INTEGER NOT NULL DEFAULT 0,
+    organolepticOk INTEGER NOT NULL DEFAULT 0,
+    sanitationOk INTEGER NOT NULL DEFAULT 0,
+    labelOk INTEGER NOT NULL DEFAULT 0,
+    updatedAt INTEGER NOT NULL DEFAULT 0
 );
 
 getHaccpCheck:

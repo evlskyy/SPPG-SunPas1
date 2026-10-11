@@ -1,9 +1,9 @@
 CREATE TABLE extraction_records (
-    id INTEGER AS Long NOT NULL PRIMARY KEY AUTOINCREMENT,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     sourceSnippet TEXT NOT NULL,
-    tasksExtracted INTEGER AS Int NOT NULL,
-    menusExtracted INTEGER AS Int NOT NULL,
-    timestamp INTEGER AS Long NOT NULL DEFAULT 0
+    tasksExtracted INTEGER NOT NULL,
+    menusExtracted INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL DEFAULT 0
 );
 
 getAllExtractions:

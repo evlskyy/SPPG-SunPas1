@@ -13,11 +13,5 @@ interface DriverFactory {
 /** Membangun instance [AppDatabase] dari sebuah [DriverFactory]. */
 fun createAppDatabase(driverFactory: DriverFactory): AppDatabase {
     val driver = driverFactory.createDriver()
-    return AppDatabase(
-        driver = driver,
-        kitchenTaskQueries = KitchenTaskQueries(driver),
-        dailyMenuQueries = DailyMenuQueries(driver),
-        haccpCheckQueries = HaccpCheckQueries(driver),
-        extractionRecordQueries = ExtractionRecordQueries(driver)
-    )
+    return AppDatabase(driver = driver)
 }

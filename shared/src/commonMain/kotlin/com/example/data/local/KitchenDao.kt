@@ -4,7 +4,10 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.example.data.db.AppDatabase
-import com.example.data.db.KitchenTask
+import com.example.data.db.Daily_menus
+import com.example.data.db.Extraction_records
+import com.example.data.db.Haccp_checks
+import com.example.data.db.Kitchen_tasks
 import com.example.data.model.DailyMenuEntity
 import com.example.data.model.ExtractionRecordEntity
 import com.example.data.model.HaccpCheckEntity
@@ -21,39 +24,31 @@ import kotlinx.coroutines.withContext
 class KitchenDao(private val database: AppDatabase, private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default) {
 
     // ==== Mapping SQLDelight row -> Entity ====
-    private fun KitchenTask.toEntity() = KitchenTaskEntity(
+    private fun Kitchen_tasks.toEntity() = KitchenTaskEntity(
         id = id, title = title, day = day, category = category, shift = shift,
         assignee = assignee, targetTime = targetTime, priority = priority,
-        status = status, sortOrder = sortOrder, createdAt = createdAt
+        status = status, sortOrder = sortOrder.toInt(), createdAt = createdAt
     )
 
-    private fun KitchenTaskEntity.toRow() = KitchenTask(
+    private fun KitchenTaskEntity.toRow() = Kitchen_tasks(
         id = id, title = title, day = day, category = category, shift = shift,
         assignee = assignee, targetTime = targetTime, priority = priority,
-        status = status, sortOrder = sortOrder, createdAt = createdAt
+        status = status, sortOrder = sortOrder.toLong(), createdAt = createdAt
     )
 
-    private fun com.example.data.db.DailyMenu.toEntity() = DailyMenuEntity(
+    private fun Daily_menus.toEntity() = DailyMenuEntity(
         day = day, porsi = porsi, jamKirim = jamKirim, menuList = menuList, updatedAt = updatedAt
     )
 
-    private fun DailyMenuEntity.toRow() = com.example.data.db.DailyMenu(
-        day = day, porsi = porsi, jamKirim = jamKirim, menuList = menuList, updatedAt = updatedAt
+    private fun Haccp_checks.toEntity() = HaccpCheckEntity(
+        id = id.toInt(), coldStorageOk = coldStorageOk != 0L,
+        organolepticOk = organolepticOk != 0L, sanitationOk = sanitationOk != 0L,
+        labelOk = labelOk != 0L, updatedAt = updatedAt
     )
 
-    private fun com.example.data.db.HaccpCheck.toEntity() = HaccpCheckEntity(
-        id = id, coldStorageOk = coldStorageOk, organolepticOk = organolepticOk,
-        sanitationOk = sanitationOk, labelOk = labelOk, updatedAt = updatedAt
-    )
-
-    private fun HaccpCheckEntity.toRow() = com.example.data.db.HaccpCheck(
-        id = id, coldStorageOk = coldStorageOk, organolepticOk = organolepticOk,
-        sanitationOk = sanitationOk, labelOk = labelOk, updatedAt = updatedAt
-    )
-
-    private fun com.example.data.db.ExtractionRecord.toEntity() = ExtractionRecordEntity(
-        id = id, sourceSnippet = sourceSnippet, tasksExtracted = tasksExtracted,
-        menusExtracted = menusExtracted, timestamp = timestamp
+    private fun Extraction_records.toEntity() = ExtractionRecordEntity(
+        id = id, sourceSnippet = sourceSnippet, tasksExtracted = tasksExtracted.toInt(),
+        menusExtracted = menusExtracted.toInt(), timestamp = timestamp
     )
 
     // ==== Tasks ====
@@ -68,12 +63,17 @@ class KitchenDao(private val database: AppDatabase, private val ioDispatcher: Co
     }
 
     suspend fun insertTask(task: KitchenTaskEntity) = withContext(ioDispatcher) {
-        database.kitchenTaskQueries.upsertTask(task.toRow())
+        database.kitchenTaskQueries.upsertTask(
+            id = task.id, title = task.title, day = task.day, category = task.category,
+            shift = task.shift, assignee = task.assignee, targetTime = task.targetTime,
+            priority = task.priority, status = task.status, sortOrder = task.sortOrder.toLong(),
+            createdAt = task.createdAt
+        )
     }
 
     suspend fun insertTasks(tasks: List<KitchenTaskEntity>) = withContext(ioDispatcher) {
         database.transaction {
-            tasks.forEach { database.kitchenTaskQueries.upsertTask(it.toRow()) }
+            tasks.forEach { database.kitchenTaskQueries.insertTasks(it.toRow()) }
         }
     }
 
@@ -106,12 +106,20 @@ class KitchenDao(private val database: AppDatabase, private val ioDispatcher: Co
 
     suspend fun insertMenus(menus: List<DailyMenuEntity>) = withContext(ioDispatcher) {
         database.transaction {
-            menus.forEach { database.dailyMenuQueries.upsertMenu(it.toRow()) }
+            menus.forEach { m ->
+                database.dailyMenuQueries.upsertMenu(
+                    day = m.day, porsi = m.porsi, jamKirim = m.jamKirim,
+                    menuList = m.menuList, updatedAt = m.updatedAt
+                )
+            }
         }
     }
 
     suspend fun upsertMenu(menu: DailyMenuEntity) = withContext(ioDispatcher) {
-        database.dailyMenuQueries.upsertMenu(menu.toRow())
+        database.dailyMenuQueries.upsertMenu(
+            day = menu.day, porsi = menu.porsi, jamKirim = menu.jamKirim,
+            menuList = menu.menuList, updatedAt = menu.updatedAt
+        )
     }
 
     suspend fun getMenuCount(): Int = withContext(ioDispatcher) {
@@ -126,7 +134,14 @@ class KitchenDao(private val database: AppDatabase, private val ioDispatcher: Co
             .map { it?.toEntity() }
 
     suspend fun upsertHaccpCheck(haccp: HaccpCheckEntity) = withContext(ioDispatcher) {
-        database.haccpCheckQueries.upsertHaccpCheck(haccp.toRow())
+        database.haccpCheckQueries.upsertHaccpCheck(
+            id = haccp.id.toLong(),
+            coldStorageOk = if (haccp.coldStorageOk) 1L else 0L,
+            organolepticOk = if (haccp.organolepticOk) 1L else 0L,
+            sanitationOk = if (haccp.sanitationOk) 1L else 0L,
+            labelOk = if (haccp.labelOk) 1L else 0L,
+            updatedAt = haccp.updatedAt
+        )
     }
 
     // ==== Extraction Records ====
@@ -139,8 +154,8 @@ class KitchenDao(private val database: AppDatabase, private val ioDispatcher: Co
     suspend fun insertExtraction(record: ExtractionRecordEntity) = withContext(ioDispatcher) {
         database.extractionRecordQueries.insertExtraction(
             sourceSnippet = record.sourceSnippet,
-            tasksExtracted = record.tasksExtracted,
-            menusExtracted = record.menusExtracted,
+            tasksExtracted = record.tasksExtracted.toLong(),
+            menusExtracted = record.menusExtracted.toLong(),
             timestamp = record.timestamp
         )
     }

@@ -8,8 +8,8 @@ CREATE TABLE kitchen_tasks (
     targetTime TEXT NOT NULL DEFAULT '06:00 WIB',
     priority TEXT NOT NULL DEFAULT 'Sedang',
     status TEXT NOT NULL DEFAULT 'Belum Dimulai',
-    sortOrder INTEGER AS Int NOT NULL DEFAULT 0,
-    createdAt INTEGER AS Long NOT NULL DEFAULT 0
+    sortOrder INTEGER NOT NULL DEFAULT 0,
+    createdAt INTEGER NOT NULL DEFAULT 0
 );
 
 getAllTasks:
